@@ -1,32 +1,31 @@
-function loadscript(src,callback) {
-    var script = document.createElement("script");
-    console.log("script without src",script )
-    script.src=src;
-    console.log("script with src",script )
-    console.log(src);
-    script.onload = function() {
-        console.log("loaded script with src: " + src);
-        callback(null, src);
-    }
-    script.onerror = function() {
-        console.log("error script with src: " + src);
-        callback(new Error("src got some error"));
-    }
-    document.body.appendChild(script);
+let p1 = new Promise((resolve, reject) => {
+    console.log("Promise is pending")
+    setTimeout(() => {
+            // console.log("I am a promise and I am resolved")
+            resolve(true)
+    }, 5000)
+})
 
-}
-function hello(src){
-    if(error) {
-        console.log(error)
-        return
-    }
-    alert("heool world" + src);
-}
-function goodmorning(src){
-    if(error) {
-        console.log(error)
-        return
-    }
-    alert("goodmorning" + src);
-}
-loadscript("https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js",goodmorning)
+let p2 = new Promise((resolve, reject) => {
+    console.log("Promise is pending")
+    setTimeout(() => {
+            // console.log("I am a promise and I am rejected")
+            reject(new Error("I am an error"))
+    }, 5000)
+})
+
+// To get the value
+p1.then((value) => {
+    console.log(value)
+})
+
+// To catch the errors
+// p2.catch((error) => {
+//         console.log("some error occurred in p2")
+// })
+
+p2.then((value)=>{
+    console.log(value) 
+},(error)=>{
+    console.log(error)
+})
